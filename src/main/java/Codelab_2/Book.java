@@ -32,12 +32,12 @@ public class Book {
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
         Book other = (Book) o;
-        return this.title == other.title;
+        return this.isbn == other.isbn;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author);
+        return Objects.hash(isbn);
     }
 
     @Override

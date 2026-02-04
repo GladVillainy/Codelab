@@ -17,7 +17,7 @@ public class User {
     }
 
     public boolean borrowBook(Book b) {
-        if (borrowedBooks.size() <= 3) {
+        if (borrowedBooks.size() < 3) {
             borrowedBooks.add(b);
             return true;
         }
@@ -34,7 +34,8 @@ public class User {
     }
 
     public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
+        int maxBorrowed = 3;
+        return borrowedBooks.stream().limit(maxBorrowed).toList();
     }
 
     @Override
