@@ -86,7 +86,7 @@ public class LibraryTest {
         assertEquals(expectedAvailable, actualAvailable);
 
         //Checking if book gets loaned
-        instance.loanBook("9780201616224", user1);
+        instance.loanBook("9780132350884", user1);
 
         int actualAvailableLoan = instance.availableBooks().size();
         int expectedAvailableLoan = 1;
@@ -104,7 +104,7 @@ public class LibraryTest {
         boolean available = true;
 
         assertEquals(isAvailable, available);
-        
+
     }
 
     @Test

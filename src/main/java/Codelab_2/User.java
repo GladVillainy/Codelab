@@ -29,8 +29,10 @@ public class User {
     }
 
     public boolean returnBook(Book b) {
-        Book tmp = new Book(b.getTitle(), b.getAuthor(), b.getIsbn());
-        return borrowedBooks.remove(tmp);
+        if (b.isLoaned()) {
+            b.setLoaned(false);
+            return borrowedBooks.remove(b);
+        } else  return false;
     }
 
     public List<Book> getBorrowedBooks() {

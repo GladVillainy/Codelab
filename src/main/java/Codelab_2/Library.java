@@ -11,12 +11,18 @@ public class Library {
     private final List<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
+        for(Book b : books){
+            if(b.getIsbn().equals(book.getIsbn())){
+                System.out.println(book.getTitle() + " is already in the system");
+                return;
+            }
+        }
         books.add(book);
     }
 
     public Book findByTitle(String title) {
         for (Book b : books) {
-            if (b.getTitle() == title) {
+            if (b.getTitle().equalsIgnoreCase(title)) {
                 return b;
             }
         }
@@ -25,9 +31,10 @@ public class Library {
 
     public boolean loanBook(String isbn, User user) {
         for (Book b : books) {
-            if (b.getIsbn().equals(isbn) && !b.isLoaned()) {
+            if (b.getIsbn().equals(isbn)
+                    && !b.isLoaned()) {
                 b.setLoaned(true);
-                boolean ok = user.borrowBook(b);
+                user.borrowBook(b);
                 return true;
             }
         }
@@ -44,7 +51,7 @@ public class Library {
     public List<Book> availableBooks() {
         List<Book> result = new ArrayList<>();
         for (Book b : books) {
-            if (b.isLoaned()) {
+            if (!b.isLoaned()) {
                 result.add(b);
             }
         }
