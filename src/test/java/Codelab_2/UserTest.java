@@ -61,6 +61,6 @@ public class UserTest {
 
         assertThrows(UnsupportedOperationException.class,
                 () -> user1.getBorrowedBooks().add(book1));
-        
+
     }
 }
