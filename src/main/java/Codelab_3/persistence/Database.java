@@ -1,4 +1,4 @@
-package persistence;
+package Codelab_3.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,6 @@
-package persistence;
+package Codelab_3.persistence;
 
-import entities.Member;
+import Codelab_3.entities.Member;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -157,5 +157,34 @@ public class MemberMapper {
                 throwables.printStackTrace();
             }
             return result;
+        }
+
+        public void teamParticipants(){
+            String sql =
+                    "SELECT t.team_id, COUNT(m.member_id)\n" +
+                    "FROM \"member\" m \n" +
+                    "JOIN registration r ON m.member_id = r.member_id\n" +
+                    "JOIN team t ON r.team_id = t.team_id\n" +
+                    "GROUP BY t.team_id";
+
+            try (Connection connection = database.connect()) {
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ResultSet rs = ps.executeQuery();
+                    while(rs.next()) {
+                        String teamid = rs.getString("team_id");
+                        int count = rs.getInt("count");
+                            System.out.println(
+                             "Team id: " + teamid + "\n" +
+                              "Amount of participants: " + count + "\n"
+                            );
+                    }
+                }catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
+                }
+            } catch (SQLException throwables) {
+                System.out.println(throwables.getMessage());
+                throwables.printStackTrace();
+            }
         }
 }
