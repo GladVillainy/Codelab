@@ -254,10 +254,39 @@ public class MemberMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    String income = rs.getString("income");
-                    
+                    int income = rs.getInt("income");
+
                     System.out.println(
                             "Income: " + income
+                    );
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+            throwables.printStackTrace();
+        }
+    }
+
+    public void totalSumEach(){
+        String sql =
+                "SELECT SUM(price) \n" +
+                "FROM registration r JOIN team t\n" +
+                "ON r.team_id = t.team_id\n" +
+                "GROUP BY t.team_id";
+
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String team_id = rs.getString("team_id");
+                    int sum = rs.getInt("sum");
+
+                    System.out.println(
+                     "Team id: " + team_id + "\n" +
+                     "Income sum: " + sum + "\n"
                     );
                 }
             } catch (SQLException e) {
