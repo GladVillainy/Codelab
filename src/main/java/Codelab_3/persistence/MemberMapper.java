@@ -230,7 +230,7 @@ public class MemberMapper {
                 while (rs.next()) {
                     String gender = rs.getString("gender");
                     int count = rs.getInt("count");
-                    
+
                     System.out.println(
                             "Sport id: " + gender + "\n" +
                             "Amount of participants: " + count + "\n"
@@ -245,12 +245,31 @@ public class MemberMapper {
             throwables.printStackTrace();
         }
     }
+
+    public void totalSumIncome(){
+        String sql =
+                "SELECT SUM(price) income FROM registration";
+
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String income = rs.getString("income");
+                    
+                    System.out.println(
+                            "Income: " + income
+                    );
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+            throwables.printStackTrace();
+        }
+    }
+
+
 }
 
-
-
-        /*
-        SELECT gender, COUNT(gender)
-FROM "member"
-GROUP BY gender
-         */
