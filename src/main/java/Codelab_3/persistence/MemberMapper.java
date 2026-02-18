@@ -299,6 +299,35 @@ public class MemberMapper {
         }
     }
 
+    public void averagePaymentEachTeam(){
+        String sql =
+            "SELECT t.team_id,AVG(r.price)\n" +
+                    "FROM registration r JOIN team t\n" +
+                    "ON r.team_id = t.team_id\n" +
+                    "GROUP BY t.team_id";
+
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String team_id = rs.getString("team_id");
+                    int avg = rs.getInt("avg");
+
+                    System.out.println(
+                            "Team id: " + team_id + "\n" +
+                             "avg income: " + avg + "\n"
+                    );
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+            throwables.printStackTrace();
+        }
+    }
+
 
 }
 
