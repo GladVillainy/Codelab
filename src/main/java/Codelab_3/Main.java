@@ -1,6 +1,9 @@
-import entities.Member;
-import persistence.Database;
-import persistence.MemberMapper;
+package Codelab_3;
+
+import Codelab_3.entities.Member;
+import Codelab_3.persistence.Database;
+import Codelab_3.persistence.MemberMapper;
+import Codelab_3.persistence.RegistrationMapper;
 
 import java.util.List;
 
@@ -14,10 +17,19 @@ public class Main {
 
         Database db = new Database(USER, PASSWORD, URL);
         MemberMapper memberMapper = new MemberMapper(db);
+        RegistrationMapper rm = new RegistrationMapper(db);
         List<Member> members = memberMapper.getAllMembers();
 
-        showMembers(members);
-        showMemberById(memberMapper, 13);
+       // showMembers(members);
+       // showMemberById(memberMapper, 13);
+
+
+        //memberMapper.teamParticipants();
+        //memberMapper.seperatedByGender();
+       // memberMapper.totalSumIncome();
+        // memberMapper.averagePaymentEachTeam();
+
+        rm.addToTeam(10, "yo02", 500);
 
         /*  
             int newMemberId = insertMember(memberMapper);
@@ -59,6 +71,4 @@ public class Main {
             System.out.println(member.toString());
         }
     }
-
-
 }
